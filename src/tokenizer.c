@@ -1,11 +1,14 @@
 #include <stdio.h>
 
 int space_char(char c){
+  if (c == ' ' || c == '\t')
+    return true;
+  return false; 
   
 }
 
 int non_space_char(char c){
-  
+  (c != ' ' && c != '\t') ? return true: return false;
 }
 
 char *token_start(char *str){
