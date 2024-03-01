@@ -1,9 +1,0 @@
-OBJS = uimain.o tokenizer.o
-CFLAGS = -g -03
-all: myTokens
-myTokens: $(OBJS)
-    cc -o myTokens$(CFLAGS)(OBJS)
-$(OBJS): tokenizer.h
-clean: rm -f *.o myTokens
-       rm -f *
-run: myprogram ./myTokens

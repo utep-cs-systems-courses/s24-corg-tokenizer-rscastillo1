@@ -2,13 +2,14 @@
 
 int main()
 {
-  puts("Welcome!");
-
-  fputs("Please enter a sentence\n>>", stdout);
-  fflush(stdout);
+  /* puts("Welcome!");
   char c[50];
+  
+  fputs("Please enter a sentence\n>>");
+  fgets(c);
+ 
   fgets(c, sizeof(c), stdin);
   printf("Sentence: ");
-  puts(c);
+  puts(c);*/
   
 }
