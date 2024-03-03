@@ -1,4 +1,4 @@
-
+#include <stdlib.h>
 #include <stdio.h>
 
 int space_char(char c){
@@ -52,6 +52,13 @@ int count_tokens(char *str){
 
 char *copy_str(char *Instr, short len){
   
+  char *scopy = malloc((len + 1) * sizeof(char)), c;
+  int i;
+  
+  for(i = 0; i<len; i++){
+    *(scopy + i) = *(Instr + i);
+  }
+  return scopy;
 }
 
 char **tokenize(char* str){
