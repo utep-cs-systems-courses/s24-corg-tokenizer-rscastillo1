@@ -37,12 +37,14 @@ char *token_terminator(char *str){
 int count_tokens(char *str){
   int i = 0;
   t_s:
-  if(token_start(str) != 0){
+  str = (token_start(str));
+  if(*str != '\0'){
     goto tterminator;
   }
   return i;
   tterminator:
-  if(token_terminator(str) != 0){
+  str = (token_terminator(str));
+  if(*str != '\0'){
     i += 1;
     goto t_s;
   }
@@ -62,6 +64,9 @@ char *copy_str(char *Instr, short len){
 }
 
 char **tokenize(char* str){
+  char *scopy = (copy_str(str, sizeof(str)));
+  char *tokens[count_tokens(str)];
+  
   
 }
 

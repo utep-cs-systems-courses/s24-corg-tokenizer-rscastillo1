@@ -2,7 +2,7 @@
 
 int main()
 {
-  /* puts("Welcome!");
+  /*puts("Welcome!");
   char c[50];
   
   fputs("Please enter a sentence\n>>");
