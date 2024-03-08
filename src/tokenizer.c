@@ -66,14 +66,26 @@ char *copy_str(char *Instr, short len){
 char **tokenize(char* str){
   char *scopy = (copy_str(str, sizeof(str)));
   char *tokens[count_tokens(str)];
-  
+
+  for(int i = 0; i < sizeof(tokens); i++){
+    scopy = token_start(scopy);
+    if(*scopy == 0 || *scopy == '\0')
+      continue;
+    tokens[i] = scopy;
+    scopy = token_terminator(scopy);
+    if(*scopy == 0 || *scopy == '\0')
+      continue;
+  }
+  return **tokens;
   
 }
 
 void print_tokens(char *tokens){
   
+  
 }
 
 void free_tokens(char **tokens){
+
   
 }
