@@ -1,15 +1,19 @@
 #include <stdio.h>
+#include "tokenizer.h"
+#include "history.h" 
+
 
 int main()
 {
-  /*puts("Welcome!");
-  char c[50];
+  char input[101];
+  List* history = init_history();
+  puts("Welcome to tokenizer!");
   
-  fputs("Please enter a sentence\n>>");
-  fgets(c);
- 
-  fgets(c, sizeof(c), stdin);
-  printf("Sentence: ");
-  puts(c);*/
+  while(1)
+    {
+      puts("Please input a string to tokenize\n>> ");
+      // input = fgets(input, sizeof(input), stdin);
+      
+  }
   
 }

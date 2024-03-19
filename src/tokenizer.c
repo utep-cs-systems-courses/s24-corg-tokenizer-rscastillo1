@@ -60,6 +60,7 @@ char *copy_str(char *Instr, short len){
   for(i = 0; i<len; i++){
     *(scopy + i) = *(Instr + i);
   }
+  *(scopy +len) = '\0';
   return scopy;
 }
 
@@ -67,7 +68,8 @@ char **tokenize(char* str){
   char *scopy = (copy_str(str, sizeof(str)));
   char *tokens[count_tokens(str)];
 
-  for(int i = 0; i < sizeof(tokens); i++){
+  for(int i = 0; i < sizeof(tokens); i++)
+    {
     scopy = token_start(scopy);
     if(*scopy == 0 || *scopy == '\0')
       continue;
@@ -76,16 +78,27 @@ char **tokenize(char* str){
     if(*scopy == 0 || *scopy == '\0')
       continue;
   }
-  return **tokens;
+  return *tokens;
   
 }
+//strings always were character arrays
 
 void print_tokens(char *tokens){
-  
+  int i = 0;
+  while(tokens[i] != 0)
+    {
+      printf("%s", tokens[i]);
+      i += 1;
+    }
   
 }
 
 void free_tokens(char **tokens){
-
-  
+  int i = 0;
+  while(tokens[i] != 0)
+    {
+      free(tokens[i]);
+      i++;
+  }
+  free(tokens);
 }

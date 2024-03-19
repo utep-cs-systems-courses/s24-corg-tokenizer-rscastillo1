@@ -1,8 +1,7 @@
-OBJS = uimain.o tokenizer.o
-CFLAGS = -g -O3
-all: mytokens
-mytokens: $(OBJS)
-	cc -o mytokens $(CFLAGS) $(OBJS)
-$(OBJS): tokenizer.h
-clean: rm -f *.o mytokens
-run: mytoken ./mytokens
+tokenizer: history.o tokenizer.o uimain.o
+	gcc -o tokenizer history.o tokenizer.o uimain.o
+history.o: history.h history.c
+tokenizer.o: tokenizer.h tokenizer.c
+uimain.o: uimain.c
+clean: rm -f *.o tokenizer
+run: ./tokenizer
