@@ -1,19 +1,70 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "tokenizer.h"
-#include "history.h" 
-
+#include "history.h"
+#define MAXLEN 101
 
 int main()
 {
   char input[101];
+  char choice;
+  char **tokens;//stores tokens. Freed after adding to history
+  
+  int count = 0;//
+
   List* history = init_history();
-  puts("Welcome to tokenizer!");
+
+  printf("Welcome to tokenizer!\n");
+
+  //loop will serve as the main program
+  //takes in input, tokenizes
+ 
+ beginning://used as loop, and for displaying history
+  //will be referred to as loop for rest of the program
+  //to make a programmer mad
+  printf("Type t for tokenizer. Type h for history. Type x to exit");
+  printf("\n>>\t");
+  scanf(" %c", &choice);
   
-  while(1)
-    {
-      puts("Please input a string to tokenize\n>> ");
-      // input = fgets(input, sizeof(input), stdin);
-      
+  if(choice == 't'){
+    getchar();
+    printf("Please enter a string\n>>");
+    fgets(input, MAXLEN, stdin);
+    
+    tokens = tokenize(input);
+    if(tokens == NULL)
+      {
+	printf("Tokenization failed. Returning to menu");
+	goto beginning;
+      }
+    else
+      {
+	//print tokens 
+	printf("Tokenz:\n");
+	print_tokens(tokens);
+	//frees tokens
+	free_tokens(tokens);
+	//adds input to history
+	add_history(history, input);
+    }
   }
-  
+  else if(choice == 'h')//prints history
+    {
+      print_history(history);
+      printf("history:\n");
+      goto beginning;
+    }
+  else if(choice != 'x')//exit
+    {
+      printf("Invalid choice");
+      goto beginning;
+    }
+ 
+  else{ //frees history, ends program
+  printf("mmmmm yummy tokens nomnomnomnom");
+  free_history(history);
+  printf("Out of tokens to nomnom\nExiting tokenizer");
+  return 0;
+  }
 }
+

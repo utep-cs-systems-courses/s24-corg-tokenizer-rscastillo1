@@ -39,7 +39,17 @@ char *get_history(List *list, int id){
   }
 }
 
-void print_history(List *list){
+void print_history(List *list)
+{
+  Item *current = list->root;
+  while(current != NULL)
+    {
+      printf("ID: %d.\t String: %s\n", current->id, current->str);
+      current = current ->next;
+    }
+}
+
+void free_history(List *list){
   Item *hcopy = list->root;
   while(list->root != NULL)
     {

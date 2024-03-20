@@ -1,7 +1,14 @@
-tokenizer: history.o tokenizer.o uimain.o
-	gcc -o tokenizer history.o tokenizer.o uimain.o
-history.o: history.h history.c
-tokenizer.o: tokenizer.h tokenizer.c
-uimain.o: uimain.c
+OBJS = history.o tokenizer.o uimain.o
+CFLAGS = -g -03
+
+all: tokenizer
+
+tokenizer: $(OBJS)
+	cc -o tokenizer $(CFLAGS) $(OBJS)
+
+$(OBJS): history.h tokenizer.h
+
 clean: rm -f *.o tokenizer
-run: ./tokenizer
+
+run: tokenizer
+	./tokenizer
