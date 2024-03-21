@@ -9,29 +9,35 @@ int space_char(char c){
 }
 
 int non_space_char(char c){
-  if (c != ' ' && c != '\t')
-    return 1;
-  return 0;
+
+  if (c == '\0') return 0;
+  
+  return !space_char(c);
 }
 
 char *token_start(char *str){
-  while(space_char(*str)){
-    str++;
+  while(*str != '\0'){
+    if(space_char(*str) || *str == '\0'){
+      str++;
+      if(*str == '\0'){
+	return NULL;
+      }//if
+    }
+    else{
+      return str;
+    }
   }
-  if(non_space_char(*str)){
-    return str;
-  }
-  return 0;
-  
+  return NULL;
 }
 
 char *token_terminator(char *str){
-  while(non_space_char(*str)){
+  while(*str){
+    if(space_char(*str))
+      return --str;
+    
     str++;
   }
-  if(space_char(*str))
-    return --str;
-  return 0;
+  return NULL;
 }
 
 int count_tokens(char *str){
@@ -54,44 +60,57 @@ int count_tokens(char *str){
 
 char *copy_str(char *Instr, short len){
   
-  char *scopy = malloc((len + 1) * sizeof(char)), c;
+  char *scopy = (char *)malloc((len + 1) * sizeof(char));
   int i;
   
-  for(i = 0; i<len; i++){
-    *(scopy + i) = *(Instr + i);
+  for(i = 0; i<len && Instr[i] != '0'; i++){
+    scopy[i] = Instr[i];
   }
-  *(scopy +len) = '\0';
+  scopy[len] = '\0';
   return scopy;
 }
 
 char **tokenize(char* str){
-  char *scopy = (copy_str(str, sizeof(str)));
-  char *tokens[count_tokens(str)];
+  int count = count_tokens(str);
+  int token_index = 0;
 
-  for(int i = 0; i < sizeof(tokens); i++)
-    {
-    scopy = token_start(scopy);
-    if(*scopy == 0 || *scopy == '\0')
-      continue;
-    tokens[i] = scopy;
-    scopy = token_terminator(scopy);
-    if(*scopy == 0 || *scopy == '\0')
-      continue;
-  }
-  return *tokens;
+  char **tokens= malloc((count+1) * sizeof(char));
+  char *token_begin = token_start(str);
+
   
+  while(token_begin != NULL){
+    char *token_end = token_terminator(token_begin);
+    int token_length = token_end - token_begin;
+    
+    tokens[token_index] = copy_str(token_begin, token_length);
+    
+    token_index++;
+    
+    token_begin = token_start(token_end);//move to start of next string
+  }
+  
+  tokens[count] = '\0';//mark the end of the token array
+  
+  return tokens;
 }
+
 //strings always were character arrays
 
-void print_tokens(char *tokens){
-  int i = 0;
-  while(tokens[i] != 0)
+void print_tokens(char **tokens){
+  
+  if(tokens == NULL)
+    {
+    printf("Token array is null\n");
+    return;
+    }
+  
+  for(int i = 0; tokens[i] != NULL; i++)
     {
       printf("%s", tokens[i]);
       i += 1;
     }
-  
 }
+
 
 void free_tokens(char **tokens){
   int i = 0;

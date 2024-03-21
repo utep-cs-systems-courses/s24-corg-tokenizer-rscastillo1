@@ -6,11 +6,11 @@
 
 int main()
 {
-  char input[101];
+  char input[MAXLEN];
   char choice;
   char **tokens;//stores tokens. Freed after adding to history
   
-  int count = 0;//
+  int count = 0;//token count
 
   List* history = init_history();
 
@@ -28,8 +28,16 @@ int main()
   
   if(choice == 't'){
     getchar();
+  stringEnter:
     printf("Please enter a string\n>>");
     fgets(input, MAXLEN, stdin);
+    input[MAXLEN-1] = '\0';
+    
+    if(input[0] == '\n')
+      {
+	printf("Empty input");
+	goto stringEnter;
+      }
     
     tokens = tokenize(input);
     if(tokens == NULL)
@@ -46,6 +54,7 @@ int main()
 	free_tokens(tokens);
 	//adds input to history
 	add_history(history, input);
+	goto beginning;
     }
   }
   else if(choice == 'h')//prints history
@@ -61,10 +70,10 @@ int main()
     }
  
   else{ //frees history, ends program
-  printf("mmmmm yummy tokens nomnomnomnom");
-  free_history(history);
-  printf("Out of tokens to nomnom\nExiting tokenizer");
-  return 0;
+    printf("mmmmm yummy tokens nomnomnomnom");
+    free_history(history);
+    printf("Out of tokens to nomnom\n>>Exiting tokenizer");
+    return 0;
   }
 }
 
